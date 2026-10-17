@@ -42,6 +42,8 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
+**The community i choose is on csc job post in reddit and a fews youtube talk regarding ai perception on job market after it have been mainstream for couple of years since 2023-2026. The classifier i sort my post into 2 group either benefit society or still need work to make improvement. The data i collect still have some weakness but overall the tech market is the most get impact by ai advancement for example it need to be in wider range of field and industry that got effecting by ai, what future will heading toward.
+
 
 
 ---
@@ -54,36 +56,60 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `label_one` Experience
 
 **Definition:**
+The writer describes something that actually happened to them, or to their own team or workplace, since AI was adopted.
 
 **Example 1:**
->
+`I just got fired from my software engineer ii role at a bank. I suspect AI had something to do with it. I was definitely not the only developer. But, I imagine their decision to cut the team size by multiple people likely was due to AI`
 
 **Example 2:**
->
+`I'm from Poland, got a dev job that I started this month, we're working using LLMs to an extent but operate on "all of your LLM code is your personal responsibility" principle, the company is expanding into a whole extra floor in the building they're in. "If something gets more cheap/efficient people will just use more of it to offset the savings" applies to companies hiring people too`
 
-### `label_two`
+### `label_two` Analysis
 
 **Definition:**
+Makes a claim about AI's impact on the job market and backs it with specific, checkable evidence (a number, a study, a named historical event or comparison).
 
 **Example 1:**
->
+`This happened in the 1990's in the legal profession. Instead of firing junior attorneys, they moved from document processing and redaction into higher-level, higher-bill-rate work. Turns out that the set of billable work isn't a fixed size, and that adding value (and reducing overhead costs) can actually make customer buy more. We might not need the set of developers we have now, but there are plenty of historical counter-examples to show that automation can add value that actually expands a market, instead of just driving a race to the bottom. Whether our late-stage-capitalist overlords are capable of seeing this is another matter entirely.`
 
 **Example 2:**
->
+`Absolutely. Studies have come out that broadly speaking colleagues respect you less for openly using AI to complete tasks. This obviously depends on how you use it, but I know I feel a pang of disgust when I'm given something of lower quality and told "I used AI to make it." Yeah, we can tell. I still do not find a real use for AI generally, given even email drafting requires so much revision work that I would rather just write it myself, but when I do I am very coy about using it. There are also studies coming out that suggest workslop (AI produced artifacts—not product specific, mind you) is resulting in a net loss of productivity across the board. Be careful how you use these things, there's always someone downstream who will suffer from you cutting corners.`
+
+
+### `label_three` outlook
+**Definition:**
+A claim about where AI and the job market are heading, or what the reader should do about it, resting on the writer's own opinion or confidence rather than evidence.
+
+**Example 1:**
+`AI finance bubble does not mean AI bubble. Even if the AI finance bubble bursts, the world would not be the same again. Not working (now known as unemployment) would be the norm. Therefore, the term unemployment wold then lose its meaning. Unfortunately, we have passed the point of no return. Nobody would slow down because of untrusting competition among countries and business. Some view it as a matter of life and death. Nobody wants to be left behind. All the walks of security, moral codes would be lip services at the best. Worse than nuclear arm race.`
+
+**Example 2:**
+`Yeah, that gap is real, and in AI it's wider than most fields since half the tooling people use daily was never in anyone's syllabus. Concrete thing that helped me and others: pick the one tool your team actually touches every day and get properly good at that, instead of trying to keep up with all of it.`
+
+### `label_four` reaction
+**Definition:**
+Expresses the writer's feeling about AI and jobs (anger, fear, sarcasm, relief) without a personal account or supporting evidence.
+
+**Example 1:**
+`"adapt to AI" is such BS. they're designed to replace us, not to help us, there's nothing to adapt to.`
+
+**Example 2:**
+`Rich countries like US have the resources to end poverty. They have for decades. The billionaires at the top would rather let thousands of Americans die of exposure every winter than give a single dollar to prevent it. The tards that think we're going to get UBI when these billionaires are the same ones that own AI are laughably stupid. AI will take your job while the billionaires laugh at your plight. That's why they're building bunkers in New Zealand and data centers in space. To protect them from you`
 
 ### The hardest boundary
 
+
 **Which two labels:**
+experience vs outlook
 
 **The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+If the post describes the writer's own situation or work, it is experience, even if it also includes feelings, predictions, or advice. It is outlook only when the post is about the future or tells the reader what to do without a first-hand account.
 
-
-
+**Second boundary: analysis vs outlook**
+If the post supports its claim with a specific, checkable fact (a number, a date, a named event or comparison, a study), it is analysis, even if it talks about the future. If the claim rests only on the writer's opinion or confidence, it is outlook
 ---
 
 ## The Dataset
@@ -92,18 +118,19 @@
      cases. -->
 
 **Where the posts came from:**
-
+reddit, youtube talk comment on post, quora
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
+i labeled them by reading through the comment one by one 
 
 **Counts per label:**
-
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| experience | 63 | 31.5% |
+| outlook | 49 | 24.5% |
+| reaction | 44 | 22.0% |
+| analysis | 44 | 22.0% |
+| **Total** | **200** | 100% |
 
 **Three hard cases**
 
@@ -112,25 +139,33 @@ Say so plainly — the disclosure is required, not penalised. -->
 
 **1.**
 > *The post:*
+> `If AI never improves beyond where it is today, it would still materially change a lot over the next 5 to 10 years. People forget the internet looked overhyped and chaotic in the late 90's too. The bubble popped, but the capability stuck around and entrepreneurs slowly figured out what it was actually good for… how to make money off it. I feel we're in a similar phase. Right now, Claude can already handle a huge portion of real software engineering work. Not perfectly, but enough that an experienced engineer can be 5x-10x if they know what they're doing. That is not theory, that is happening in production workflows today at the top tech shops. And software is just the first domain that has been heavily optimized around AI. If model progress froze tomorrow, founders would spend the next decade operationalizing the same level of augmentation across law, accounting, marketing, research, ops, everything white collar. You do not need superintelligence to reshape industries. You just need tools that are good enough to compress cognitive labor by 30 to 70 percent. That creates economic pressure, and companies that use it well outcompete those that do not. It will not look like mass replacement overnight. It will look like fewer people doing more work, and over a decade that changes everything.`
 >
 > *Could have been:*
+> `outlook`
 >
 > *I chose, because:*
+> `analysis`. The whole post is about the future, which pulls toward outlook. But it backs its claim with a checkable comparison (the dot-com bubble and what happened to the internet afterward), so under my decision rule it is analysis.
 
 **2.**
 > *The post:*
+> `The thing is, We've only seen the growth of 4 years. LLMs are so good that theyre now a threat to developers. You say it like its a walk in the park for a joe shmoe junior dev to upskill and compete with claude code. How many junior devs will follow your advice? And in that comparison how many junior devs will succeed after being good enough? Don't you think this model isn't for everyone. You yourself potrayed junior devs as a volatile position saying "AI can do that""...Being a very new CS student, I'm having nightmares seeing people calling what would by my first future position A "AI can do junior dev's job" Well then which cuckass ceo would hire me if AI can do my job? Don't you think people rushing for 'compete with claude code' will outweigh the job market for junior devs. that means all their hardwork and effort will go down the drain + we don't even see any improvement or good gesture from the community. Everyone on here thinks fixing clogged toilet will be their next job rather than being in tech. Everyone is trying to switch, What would CS student think seeing these people run away from tech. and Mind you, these mfs are 10 YOE+, Like they have been around the block, and they're thinking about switching. At this point my day to day is just reading through reddit > getting depressed > not growing and sleeping > repeat`
 >
 > *Could have been:*
+> `reaction`
 >
 > *I chose, because:*
+> `experience`. The post is full of strong feeling, which pulls toward reaction. But the writer grounds it in their own situation as a new CS student and describes what their daily life looks like now ("reading through reddit > getting depressed > not growing"). Because the post describes their own lived situation and not just a feeling about the topic, I chose experience.
 
 **3.**
 > *The post:*
+> `I've been programming for 15 years as a hobby and an electrical engineer by trade. Although AI is not perfect, the latest models are actually quite insane. I rarely write code myself anymore and just spot inefficiencies and mistakes and point them out to guide the AI's thought. It's more like driving a car to get places than walking. But idk, if it gets any better than this (able to correct its own mistakes without a involving any guidance from someone with specialized knowledge, possibly by connecting networks of different models), it is very possible that apps can just be made end to end by vibe coding alone. Good programming practices like readability and architecture become irrelevant if no human ever needs to touch the code. We might end up being visual designers and nothing else 😂 though it's still too early to see if that will happen. As a hobbyist I'm very happy that I can write programs 20x faster than before, but if I am looking for work I would still be worried.`
 >
 > *Could have been:*
+> `outlook`
 >
 > *I chose, because:*
-
+> `experience`. The middle of the post guesses where AI is heading ("We might end up being visual designers"), which is outlook. But most of the post describes how the writer works with AI today, after 15 years of programming, and the writer hedges the guess ("too early to see if that will happen"). Since the first-hand account is the main point, I chose experience. experience overule outlook since it does including some truth in the story
 ---
 
 ## The Training Run
