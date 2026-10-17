@@ -51,61 +51,72 @@ whether you hit them:
 
 ---
 
-## 1.
-
-<!-- Your criterion. It must name a number. -->
-
-
-
+## 1. Overall accuracy on the held-out test set is at least 0.50.
 **Why this target:**
+With 4 labels, random guessing gets about 25%, and always guessing
+   `experience` (my biggest label) gets about 32.5%, so 0.50 is well above
+   both. When I labeled 20 posts cold, my labels matched the AI's pre-labels
+   only 10 out of 20 times (50%), mostly disagreeing on `experience`. Since
+   the model learns from those same labels, I expect its accuracy to land
+   near that level, so 0.50 is the point where it is at least as consistent
+   as my own labeling.
 
 
 
 ---
 
-## 2.
+## 2.Every label has an F1 of at least 0.40 on the held-out test set.
+**Why this target:**
+My labels overlap. `experience` posts often include the writer's
+   predictions or other people's takes on the market, so they cross over
+   into `outlook`, and that is the boundary I expect the model to confuse
+   most. `analysis` and `reaction` also have only about 6 posts each in the
+   test set, so one or two mistakes can drop their score a lot. I set the
+   floor at 0.40 so that no label is ignored, even if the overlap pulls
+   some scores down.
 
-<!-- Your criterion. -->
 
+---
+
+## 3.On the held-out test set, no single label makes up more than 50% of
+   the model's predictions.
+
+**Why this target:**
+I want every label to have a fair chance. `experience` is my biggest
+   label (32.5% of the data) and overlaps with the others, so the model may
+   lean toward guessing it. A skew above 50% would make the results
+   imbalanced and biased, and I want a fair perspective across all four labels.
+
+
+---
+
+## 4.On the 30-post staff set, my labels agree with the staff labels on at least 18 of 30 posts (0.60).
 
 
 **Why this target:**
+When I labeled 20 of my own posts cold, my labels matched the AI's
+   pre-labels only 50% of the time. Staff rules are written by experienced
+   people and should be clearer than an AI's guesses, so I expect to do
+   better than that, at about 60–70%. I set the bar at the bottom of that
+   range, 0.60.
 
 
 
 ---
 
-## 3.
-
-<!-- Your criterion. -->
+## 5. The `experience` label has an F1 of at least 0.45 on the held-out test set.
 
 
 
 **Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
-
----
-
-## 5.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
+`experience` is my biggest and most important label, but it overlaps
+   with `outlook` and `reaction`, so on the first run I expect the model to
+   both miss some real experience posts and wrongly guess experience for
+   others. Because it has the most test posts (about 10), I expect it to
+   score a bit above my 0.40 floor for every label, so I set 0.45 as my bar
+   for this first run. If it falls short, my plan is to add posts from other
+   industries and write a sharper experience rule, then check whether the
+   score holds or improves.
 
 
 
