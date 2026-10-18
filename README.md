@@ -187,25 +187,20 @@ of next unit's variance. -->
 ---
 
 ## How I Used AI
-
-<!-- Two specific moments — what you asked, what came back, what you changed.
-
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+i used ai to collect and guide me which data set is reach my criteria 
+during the trainning i tend to over shoot or undershoot for data not related or not reach some criteria i set for so i use ai to help me.
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* checker for criteria of source to be use data
+- *What came back:* suggestion then using that suggestion it guide me through how to pick good data
+- *What I changed:* method on how i do one by one instead gather everything at one place and then use ai to research some after my first round of human filtering hand off to ai
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* as reminder what criteria did i missed during the milestone 
+- *What came back:* your milestone 2 is solid but your criteria 2 seem like it contradict with what you wrote.
+- *What I changed:* my workflow instead rely solely on ai i read first for requirement then later lets ai help guide me so i can detect if they make error during the work.
 
 **Pre-labelling disclosure:**
 
