@@ -233,11 +233,10 @@ from my finding am guessing that there something wrong with the way i wrote anal
 so my prediction for the next one before train i guessing that model will shift from experience to analysis distributed a little more
 
 **What the gap actually means:**
-After the train the data come out unexpectedly not align with what i have hypothesis for. `outlook` and `reaction`
-drop to zero also here is `analysis` still stay flat in zero and `experience` 
+After the train the data come out unexpectedly not align with what i have hypothesis. For `outlook` and `reaction`drop to  zero also here is `analysis` still stay flat in zero and `experience` 
 goes down to .5 which might need to revise but it was very interesting because last time we say analysis will gain a bit more and experience drop
 but in this case experience drop leave analysis stay the same which unexpected but align with our hypothesis as before but not behaving as expect with out 
-hypothesis while other labels drop death to zero that was so unexpected too over all gap is after train is .33 comepare to baseline at .433. So far i dont know yet happen but need more back up evidence in upcoming finding milestone
+hypothesis while other labels dropped to zero that was so unexpected too over all gap is after train is .33 comepare to baseline at .433. So far i dont know yet happen but need more back up evidence in upcoming finding milestone
 
 
 ---
@@ -249,11 +248,11 @@ hypothesis while other labels drop death to zero that was so unexpected too over
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.50 | 0.333 | 0.333 | 0.367 | MISSED |
+| 2. Every label F1 (lowest label shown) | ≥ 0.40 | 0.000 | 0.000 | 0.000 | MISSED |
+| 3. No label over 50% of predictions (biggest share shown) | ≤ 50% | 100% | 100% | 86.7% | MISSED |
+| 4. Agreement with staff set | ≥ 18 of 30 (0.60) | pending | pending | pending | pending (Milestone 3) |
+| 5. `experience` F1 | ≥ 0.45 | 0.500 | 0.500 | 0.556 | MET |
 
 ### Confusion matrix
 
@@ -265,7 +264,7 @@ hypothesis while other labels drop death to zero that was so unexpected too over
 | **reaction** | 6 | 0 | 0 | 0 |
 
 
-This matrix is for seed 42 (the first seed in section 6). Run on CPU, torch 2.14.1. Accuracy across the three seeds was 0.333, 0.333 and 0.367, a spread of 0.033, so the result is stable. `analysis` and `reaction` have only 6 test posts each, so their scores can jump a lot between seeds.
+This matrix is for seed 42 (the first seed in section 6). Run on CPU, torch 2.14.1. Before running section 6, I changed `LABELS` in notebook cell 7 from the starter's three example labels to my four real labels, since the notebook still had the starter list. Accuracy across the three seeds was 0.333, 0.333 and 0.367, a spread of 0.033, so the result is stable. `analysis` and `reaction` have only 6 test posts each, so their scores can jump a lot between seeds.
 
 **My biggest off-diagonal number, and what it means:**
 The model put all 30 test posts in the `experience` column, so the matrix is one vertical line. Its 20 wrong answers are all off-diagonal in that column, and the biggest cell is 8 real `outlook` posts called `experience`. The training loss only went from about 1.36 to about 1.33 (guessing among 4 labels is about 1.39), so the model barely learned and mostly guessed its biggest label. I don't know yet whether this comes from my labels or from too little training; the agreement check in Milestone 3 should help me tell.

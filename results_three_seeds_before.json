@@ -1,0 +1,209 @@
+[
+  {
+    "seed": 42,
+    "n_test": 30,
+    "accuracy": 0.3333333333333333,
+    "f1_macro": 0.125,
+    "per_label": {
+      "experience": {
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "support": 10
+      },
+      "analysis": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      },
+      "outlook": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      }
+    },
+    "confusion": {
+      "experience": {
+        "experience": 10,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "analysis": {
+        "experience": 6,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "outlook": {
+        "experience": 8,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "reaction": {
+        "experience": 6,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.3381477892398834,
+      "mean_when_wrong": 0.308668315410614,
+      "accuracy_most_confident_third": 0.6,
+      "accuracy_least_confident_third": 0.0,
+      "n_per_third": 10
+    },
+    "device": "cpu",
+    "device_name": "CPU",
+    "torch_version": "2.14.1+cpu",
+    "max_length": 128
+  },
+  {
+    "seed": 7,
+    "n_test": 30,
+    "accuracy": 0.3333333333333333,
+    "f1_macro": 0.125,
+    "per_label": {
+      "experience": {
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "support": 10
+      },
+      "analysis": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      },
+      "outlook": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      }
+    },
+    "confusion": {
+      "experience": {
+        "experience": 10,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "analysis": {
+        "experience": 6,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "outlook": {
+        "experience": 8,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "reaction": {
+        "experience": 6,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.3273715078830719,
+      "mean_when_wrong": 0.3107808828353882,
+      "accuracy_most_confident_third": 0.8,
+      "accuracy_least_confident_third": 0.1,
+      "n_per_third": 10
+    },
+    "device": "cpu",
+    "device_name": "CPU",
+    "torch_version": "2.14.1+cpu",
+    "max_length": 128
+  },
+  {
+    "seed": 2024,
+    "n_test": 30,
+    "accuracy": 0.36666666666666664,
+    "f1_macro": 0.18055555555555555,
+    "per_label": {
+      "experience": {
+        "precision": 0.38461538461538464,
+        "recall": 1.0,
+        "f1": 0.5555555555555556,
+        "support": 10
+      },
+      "analysis": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      },
+      "outlook": {
+        "precision": 0.25,
+        "recall": 0.125,
+        "f1": 0.16666666666666666,
+        "support": 8
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6
+      }
+    },
+    "confusion": {
+      "experience": {
+        "experience": 10,
+        "analysis": 0,
+        "outlook": 0,
+        "reaction": 0
+      },
+      "analysis": {
+        "experience": 4,
+        "analysis": 0,
+        "outlook": 2,
+        "reaction": 0
+      },
+      "outlook": {
+        "experience": 7,
+        "analysis": 0,
+        "outlook": 1,
+        "reaction": 0
+      },
+      "reaction": {
+        "experience": 5,
+        "analysis": 0,
+        "outlook": 1,
+        "reaction": 0
+      }
+    },
+    "confidence": {
+      "mean_when_right": 0.33080166578292847,
+      "mean_when_wrong": 0.3122084140777588,
+      "accuracy_most_confident_third": 0.6,
+      "accuracy_least_confident_third": 0.1,
+      "n_per_third": 10
+    },
+    "device": "cpu",
+    "device_name": "CPU",
+    "torch_version": "2.14.1+cpu",
+    "max_length": 128
+  }
+]
