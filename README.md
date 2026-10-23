@@ -216,21 +216,28 @@ during the trainning i tend to over shoot or undershoot for data not related or 
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.433 | 0.333 | -0.100 |
+| Macro F1 | 0.346 | 0.125 | -0.221 |
+| F1 — `analysis` | 0.000 | 0.000 | +0.000 |
+| F1 — `experience` | 0.762 | 0.500 | -0.262 |
+| F1 — `outlook` | 0.316 | 0.000 | -0.316 |
+| F1 — `reaction` | 0.308 | 0.000 | -0.308 |
 
 **What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+Before the train i do basemodel run and i got result very skew on both end and not distribute evenly 
+for example `analysis` is at 0 end while `experience` is at .762 end with other 2 like`outlook` and `reaction` in range of .3-.31 rounded
+from my finding am guessing that there something wrong with the way i wrote analysis labels 
+so my prediction for the next one before train i guessing that model will shift from experience to analysis distributed a little more
 
 **What the gap actually means:**
-<!-- If the baseline matched your trained model, your fine-tuning added
-     nothing — and that is a real finding, not a failure. Say it plainly. -->
-
+After the train the data come out unexpectedly not align with what i have hypothesis for. `outlook` and `reaction`
+drop to zero also here is `analysis` still stay flat in zero and `experience` 
+goes down to .5 which might need to revise but it was very interesting because last time we say analysis will gain a bit more and experience drop
+but in this case experience drop leave analysis stay the same which unexpected but align with our hypothesis as before but not behaving as expect with out 
+hypothesis while other labels drop death to zero that was so unexpected too over all gap is after train is .33 comepare to baseline at .433. So far i dont know yet happen but need more back up evidence in upcoming finding milestone
 
 
 ---
@@ -250,20 +257,18 @@ during the trainning i tend to over shoot or undershoot for data not related or 
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+| true \ predicted | experience | analysis | outlook | reaction |
+|---|---|---|---|---|
+| **experience** | 10 | 0 | 0 | 0 |
+| **analysis** | 6 | 0 | 0 | 0 |
+| **outlook** | 8 | 0 | 0 | 0 |
+| **reaction** | 6 | 0 | 0 | 0 |
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+
+This matrix is for seed 42 (the first seed in section 6). Run on CPU, torch 2.14.1. Accuracy across the three seeds was 0.333, 0.333 and 0.367, a spread of 0.033, so the result is stable. `analysis` and `reaction` have only 6 test posts each, so their scores can jump a lot between seeds.
 
 **My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
+The model put all 30 test posts in the `experience` column, so the matrix is one vertical line. Its 20 wrong answers are all off-diagonal in that column, and the biggest cell is 8 real `outlook` posts called `experience`. The training loss only went from about 1.36 to about 1.33 (guessing among 4 labels is about 1.39), so the model barely learned and mostly guessed its biggest label. I don't know yet whether this comes from my labels or from too little training; the agreement check in Milestone 3 should help me tell.
 
 
 ---
