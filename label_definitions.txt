@@ -5,6 +5,8 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+experience: The writer describes something that actually happened to them, or to their own team or workplace, since AI was adopted.
+analysis: Makes a claim about AI's impact on the job market and backs it with specific, checkable evidence (a number, a study, a named historical event or comparison).
+outlook: A claim about where AI and the job market are heading, or what the reader should do about it, resting on the writer's own opinion or confidence rather than evidence.
+reaction: Expresses the writer's feeling about AI and jobs (anger, fear, sarcasm, relief) without a personal account or supporting evidence.
+
