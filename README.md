@@ -42,7 +42,7 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-**The community i choose is on csc job post in reddit and a fews youtube talk regarding ai perception on job market after it have been mainstream for couple of years since 2023-2026. The classifier i sort my post into 2 group either benefit society or still need work to make improvement. The data i collect still have some weakness but overall the tech market is the most get impact by ai advancement for example it need to be in wider range of field and industry that got effecting by ai, what future will heading toward.
+**The community i choose is on csc job post in reddit and a fews youtube talk regarding ai perception on job market after it have been mainstream for couple of years since 2023-2026. The classifier sorts each post into 4 labels: `experience` (something that happened to the writer or their workplace since AI), `analysis` (a claim backed by a checkable fact), `outlook` (a prediction or advice resting on opinion), and `reaction` (a feeling with no personal account or evidence). The data i collect still have some weakness but overall the tech market is the most get impact by ai advancement for example it need to be in wider range of field and industry that got effecting by ai, what future will heading toward.
 
 
 
@@ -121,15 +121,15 @@ If the post supports its claim with a specific, checkable fact (a number, a date
 reddit, youtube talk comment on post, quora
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
-i labeled them by reading through the comment one by one 
+20 posts I labeled cold first. The other 180 were pre-labelled by AI, and I read through each comment one by one and mostly kept the AI's label. See the pre-labelling disclosure under How I Used AI.
 
 **Counts per label:**
 | Label | Count | Share |
 |---|---|---|
-| experience | 63 | 31.5% |
-| outlook | 49 | 24.5% |
-| reaction | 44 | 22.0% |
-| analysis | 44 | 22.0% |
+| experience | 65 | 32.5% |
+| outlook | 51 | 25.5% |
+| reaction | 43 | 21.5% |
+| analysis | 41 | 20.5% |
 | **Total** | **200** | 100% |
 
 **Three hard cases**
@@ -146,6 +146,8 @@ i labeled them by reading through the comment one by one
 >
 > *I chose, because:*
 > `analysis`. The whole post is about the future, which pulls toward outlook. But it backs its claim with a checkable comparison (the dot-com bubble and what happened to the internet afterward), so under my decision rule it is analysis.
+>
+> *Note (unit 6):* In `labels.csv` this post is actually recorded as `outlook`, not `analysis`. I applied my own rule inconsistently here, which is the same analysis/outlook slip my staff agreement check found. I left the CSV unchanged because labels stay frozen this unit.
 
 **2.**
 > *The post:*
@@ -172,15 +174,18 @@ i labeled them by reading through the comment one by one
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`
 
 **Settings:** <!-- epochs, learning rate, batch size, seed -->
+learning rate 2e-5, batch size 16, seed 42 (unit 6 adds seeds 7 and 2024). Unit 5 run: 3 epochs, max length 256. Unit 6 "before" run: 3 epochs, max length 128. Unit 6 "after" run: 10 epochs, max length 128.
 
 **Anything I changed from the defaults, and why:**
+I set `LABELS` to my four labels (the starter had three example labels). In unit 6 Milestone 5 I raised epochs from 3 to 10, because the before-run loss barely moved (see The Improvement). My unit 5 run (`results.json`, used in Baseline vs. Trained) read up to 256 tokens per post; all unit 6 runs use 128, so the before and after runs differ only in epochs.
 
 **Split sizes:** <!-- train / val / test, and per-label counts in the test
 split. If a label had fewer than about 8 in test, say so — it explains a lot
 of next unit's variance. -->
+train 139 / val 31 / test 30. Test split (seed 42): `experience` 10, `outlook` 8, `analysis` 6, `reaction` 6. `analysis` and `reaction` have fewer than 8 test posts, so their F1 jumps a lot between seeds.
 
 
 
@@ -202,7 +207,26 @@ during the trainning i tend to over shoot or undershoot for data not related or 
 - *What came back:* your milestone 2 is solid but your criteria 2 seem like it contradict with what you wrote.
 - *What I changed:* my workflow instead rely solely on ai i read first for requirement then later lets ai help guide me so i can detect if they make error during the work.
 
+**Moment 3 (unit 6, verdicts and diagnoses)**
+
+- *What I asked for:* help drafting verdicts and diagnoses for my five criteria from the three-seed results and my agreement report.
+- *What came back:* a draft that blamed criteria 1–3 on too little training (loss only went 1.36 → 1.33, about 27 updates, everything predicted `experience`) and criterion 4 on me applying the staff rules by tone.
+- *What I changed:* I checked every verdict against the seed numbers myself before keeping it.
+
+**Moment 4 (unit 6, choosing the improvement)**
+
+- *What I asked for:* which one improvement to make.
+- *What came back:* AI suggested more epochs, because a model that has barely trained can't show whether cleaner labels help. I first wanted to relabel the analysis/outlook boundary.
+- *What I changed:* I picked epochs (3 → 10) as my one improvement and kept relabeling as an idea for later.
+
+**Moment 5 (unit 6, catching mistakes)**
+
+- *What I asked for:* help checking my files before submitting.
+- *What came back:* AI found that my "before" results file had been overwritten because `RUN_LABEL` was still `"before"`, and restored the committed version from git. I noticed myself that the notebook still showed 3 epochs after the change, and fixed it in VS Code.
+- *What I changed:* I now check `RUN_LABEL` and the printed epochs before every run.
+
 **Pre-labelling disclosure:**
+180 of my 200 posts were pre-labelled by AI (marked `pre-labelled` in the `note` column of `labels.csv`). I read every one of them, but I kept most of the AI's labels as they were. The other 20 posts I labeled cold first, before seeing any AI label (marked `cold`). On those 20, my labels matched the AI's only 10 times (50%), so the AI and I often disagreed, yet I mostly accepted its labels on the other 180. This matters for my results: my staff agreement check showed I tend to label by tone, and the AI labels I accepted may carry the same kind of inconsistency into the data the model trained on.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
@@ -482,20 +506,49 @@ Of my 15 disagreements, 13 are pile (a), meaning the rule already covered the po
 ## The Improvement
 
 **What I changed:**
+One training setting: `EPOCHS` went from 3 to 10 in notebook section 2. Learning rate (2e-5), batch size (16), seeds (42, 7, 2024), my labels, my taxonomy and my criteria all stayed the same. With 139 training posts and batch size 16 that is about 90 updates instead of about 27. Max length stayed at 128 tokens, the same as the before run. I ran the same three seeds and saved the numbers in `results_three_seeds_after.json`.
 
 **Which diagnosis pointed at it:**
+The diagnosis for criteria 1, 2 and 3: the loss only moved from about 1.36 to about 1.33 (guessing among 4 labels is about 1.39), the model predicted `experience` for all 30 test posts, and it had only about 27 updates. That pointed at too little training, not at my labels. I did think about relabeling the `analysis` versus `outlook` boundary first, because my staff agreement was 50%. But a model that has barely learned anything cannot show whether cleaner labels help, so I fixed training first. I wanted to try the relabel as a separate experiment afterwards, so I could tell the two changes apart, but I ran out of time to test it before the deadline.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.50 | 0.533 | 0.600 | 0.567 | MET |
+| 2. Every label F1 (lowest label shown) | ≥ 0.40 | 0.250 | 0.222 | 0.471 | MISSED |
+| 3. No label over 50% of predictions (biggest share shown) | ≤ 50% | 43.3% | 43.3% | 50.0% | MET |
+| 4. Agreement with staff set | ≥ 18 of 30 (0.60) | 15 / 30 | 15 / 30 | 15 / 30 | MISSED |
+| 5. `experience` F1 | ≥ 0.45 | 0.632 | 0.783 | 0.640 | MET |
+
+Criterion 3 is a narrow MET: on seed 2024 `experience` is exactly 50.0% of predictions (15 of 30), which is not over 50%, but one more `experience` guess would have missed it. Criterion 4 did not change because it measures my labeling against the staff set, and I did not touch my labels in this run.
+
+Spread across seeds (before to after):
+
+| Measure | Before (42 / 7 / 2024) | After (42 / 7 / 2024) | After spread |
+|---|---|---|---|
+| Overall accuracy | 0.333 / 0.333 / 0.367 | 0.533 / 0.600 / 0.567 | 0.067 |
+| Macro F1 | 0.125 / 0.125 / 0.181 | 0.506 / 0.549 / 0.553 | 0.047 |
+| F1 `analysis` | 0.000 / 0.000 / 0.000 | 0.667 / 0.222 / 0.500 | 0.444 |
+| F1 `outlook` | 0.000 / 0.000 / 0.167 | 0.476 / 0.526 / 0.471 | 0.056 |
+| F1 `reaction` | 0.000 / 0.000 / 0.000 | 0.250 / 0.667 / 0.600 | 0.417 |
+| F1 `experience` | 0.500 / 0.500 / 0.556 | 0.632 / 0.783 / 0.640 | 0.151 |
+
+Confusion matrix after the change (seed 42, CPU, torch 2.14.1):
+
+| true \ predicted | experience | analysis | outlook | reaction |
+|---|---|---|---|---|
+| **experience** | 6 | 0 | 3 | 1 |
+| **analysis** | 0 | 4 | 2 | 0 |
+| **outlook** | 1 | 2 | 5 | 0 |
+| **reaction** | 2 | 0 | 3 | 1 |
 
 **Did it help, and how do I know:**
+Yes, clearly, though not enough to meet every target. With epochs as the only change, accuracy rose from 0.333 / 0.333 / 0.367 to 0.533 / 0.600 / 0.567, and macro F1 from 0.125 / 0.125 / 0.181 to 0.506 / 0.549 / 0.553. Criterion 1 flipped from MISSED to MET (all three seeds are now above 0.50), and criterion 3 flipped from MISSED to MET (the biggest label share fell from 100% / 100% / 86.7% to 43.3% / 43.3% / 50.0%). The matrix is no longer one vertical column: the model now predicts all four labels, and the diagonal went from 10 correct to 16 correct on seed 42. The training loss fell from about 1.37 to between about 0.75 and 0.87 across the three seeds, instead of stalling at 1.33, so the model really was learning this time, which supports the diagnosis that the first run was undertrained.
+
+It did not fix everything. Criterion 2 is still MISSED because `reaction` is 0.250 on seed 42 and `analysis` is 0.222 on seed 7. Criterion 4 is untouched. The results are also still noisy: accuracy moved 0.067 across seeds, and `analysis` and `reaction` have only 6 test posts each, so their F1 swings by about 0.42 to 0.44 between seeds. `reaction` is still the weakest label on seed 42 (only 1 of 6 correct, with the rest going to `outlook` and `experience`), so a labeling problem there is still possible, and I have not ruled it out.
+
+A note on how I got here: my first after-run accidentally also changed the max length from 128 to 256 tokens, so two settings differed from the before run. I caught this in the results files and re-ran with max length 128, so the numbers above change only epochs. (That first run gave 0.467 / 0.600 / 0.567, so the longer max length was not the reason for the improvement.)
 
 <!-- If it didn't, say so. Relabelling that didn't help is a genuinely
      interesting result and earns full credit. -->
@@ -508,12 +561,33 @@ Of my 15 disagreements, 13 are pile (a), meaning the rule already covered the po
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+After the 10-epoch change, two criteria are still MISSED (2 and 4). Criteria 1, 3 and 5 are MET. I did not revise any criterion: all five could be measured, and a target I missed stays where it is.
 
+**Criterion 2: every label F1 ≥ 0.40 (lowest label: `reaction` 0.250 on seed 42, `analysis` 0.222 on seed 7, `outlook` 0.471 on seed 2024).**
+*What I would do:* Re-read my `reaction` and `analysis` posts one by one and label them again by asking the staff-style questions first: is a checkable fact carrying the claim, and is this about the writer's own moment? In the confusion matrix, only 1 of 6 real `reaction` posts is right, and the rest go to `outlook` (3) and `experience` (2). That fits my staff disagreements, where I labeled `reaction` and `analysis` by tone and voice. I would also add about 30 more `reaction` and `analysis` posts, because each has only about 6 test posts, so one or two mistakes move F1 by 0.2 or more.
+
+
+**Criterion 4: agreement with the staff set ≥ 18 of 30 (I got 15 of 30).**
+*What I would do:* This measures how consistently I apply written rules, not the model, so training cannot fix it. 13 of my 15 disagreements were pile (a), where the rule covered the post and I applied it loosely. I would label a fresh set of posts with a short two-question checklist (is a checkable fact doing the work? is it about the writer's own moment?) and check my agreement again on posts I have not seen. I should not redo the same 30 staff posts, because I have seen the staff answers, so a new score would not mean anything.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
+I meant `analysis` to mean "a checkable fact carries the claim" and `reaction` to mean "a feeling with no account and no evidence". The matrix shows the model learned the first reasonably well (4 of 6 `analysis` posts correct on seed 42) but not the second (1 of 6 `reaction` posts correct, the rest called `outlook` or `experience`), which suggests my `reaction` labels do not share a pattern the model can find, and fits my own finding that I labeled by tone and voice instead of applying the rule.
 
+## How I Used AI
+i used ai to verify or method crafting on how to improve my trainning based on it parameter visualizer also clean up my sentence for me 
+
+**Moment 1**
+
+- *What I asked for:* visualize epoch ml trainning terminology 
+- *What came back:* a visual guide of how each component work together so it forge my understanding
+- *What I changed:* help me understand better quick on the fly test theory
+
+**Moment 2**
+
+- *What I asked for:* clean up my sentence before i write onto readme 
+- *What came back:* a suggestion with scorer if it below 7 its not eligible and there still more work to be done 
+- *What I changed:* my workflow go through one by one to verify before making mistake
 
 
 <!-- ═════════════════════════════════════════════════════════════════════
