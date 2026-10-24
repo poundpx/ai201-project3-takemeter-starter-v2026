@@ -251,7 +251,7 @@ hypothesis while other labels dropped to zero that was so unexpected too over al
 | 1. Overall accuracy | ≥ 0.50 | 0.333 | 0.333 | 0.367 | MISSED |
 | 2. Every label F1 (lowest label shown) | ≥ 0.40 | 0.000 | 0.000 | 0.000 | MISSED |
 | 3. No label over 50% of predictions (biggest share shown) | ≤ 50% | 100% | 100% | 86.7% | MISSED |
-| 4. Agreement with staff set | ≥ 18 of 30 (0.60) | pending | pending | pending | pending (Milestone 3) |
+| 4. Agreement with staff set | ≥ 18 of 30 (0.60) | 15 / 30 | 15 / 30 | 15 / 30 | MISSED |
 | 5. `experience` F1 | ≥ 0.45 | 0.500 | 0.500 | 0.556 | MET |
 
 ### Confusion matrix
@@ -308,7 +308,7 @@ The model put all 30 test posts in the `experience` column, so the matrix is one
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 15 / 30 = 50%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -331,24 +331,143 @@ The model put all 30 test posts in the `experience` column, so the matrix is one
      what you did across your own 200. -->
 
 **1.**
-> *The post:*
+> *The post:* "I tracked sleep against session quality for eleven weeks. Under seven hours the next day's intervals were 6-8 seconds per mile slower..."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. The eleven weeks of sleep-vs-interval data is what the conclusion about scheduling hard days rests on, so the fact carries the argument (Rule 1). I labeled it from "a runner talking about themselves" instead of asking whether the fact carries the argument.
 >
-> *Which pile:*
+> *Which pile:* (a)
 
 **2.**
-> *The post:*
+> *The post:* "The club championship scoring changed in 2019 from top-6 to top-10. Since then our B team has finished above the A team twice..."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. The 2019 scoring change and the B team finishing above the A team twice are the evidence for "it's the scoring rewarding turnout." Remove them and the claim has nothing behind it (Rule 1).
 >
-> *Which pile:*
+> *Which pile:* (a)
+
+**3.**
+> *The post:* "Carbon plates aren't the whole story. My times dropped 2% in the shoes and another 2% the following year in the same pair..."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. The 2% drop in the shoes and another 2% the next year in the same pair, with only the mileage changing, is what rules out shoes as the whole story. That comparison does the work (Rule 1).
+>
+> *Which pile:* (a)
+
+**4.**
+> *The post:* "Checked the entry lists. 41% of this year's field have never run the distance before, against 26% five years ago..."
+>
+> *Staff said / I said:* `analysis` / `reaction`
+>
+> *My call, and why:* Staff is right. "Checked the entry lists" sounded like something that had just happened to the writer, so I treated it as a reaction. But the 41% vs 26% comparison is the argument against "standards dropped," and Rule 3 says recency does not outrank a load-bearing fact.
+>
+> *Which pile:* (a)
+
+**5.**
+> *The post:* "Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles..."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. The same loop at 4C and 24C at the same heart-rate effort, 90 seconds slower in the heat, is the evidence for "it's more than a bit" (Rule 1). I focused on "people keep saying..." which sounds like an opinion, and missed that the number carries it.
+>
+> *Which pile:* (a)
+
+**6.**
+> *The post:* "Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent. It's not a bad-luck year, it's the base rate."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. The 18 to 23 percent range across every year since 2012 is the evidence for "it's the base rate, not a bad-luck year," so the fact carries the argument (Rule 1). I read the confident last sentence as the point and missed that the data supports it.
+>
+> *Which pile:* (a)
+
+**7.**
+> *The post:* "Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people."
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* I still lean `hot_take`. The writer is careful about how the claim lands ("I'm not saying shoes do nothing") and the sample is three people, so to me it reads as a personal opinion dressed up with a number. Staff's reading is also fair, because "within 10 seconds" is a checkable fact and the conclusion rests on it (Rule 1), and Rule 1 doesn't say how a hedged tone or a tiny sample should count. So I think this one is arguable on both sides, though the rule leans toward staff.
+>
+> *Which pile:* (c)
+
+**8.**
+> *The post:* "Heart rate zones are astrology for runners."
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. It has no stat, date, time, quote or named comparison, only a confident one-liner with nothing argued, so it fits the `hot_take` definition. I should not have called it `analysis`.
+>
+> *Which pile:* (a)
+
+**9.**
+> *The post:* "The club needs to stop pretending the Tuesday session is for everyone. It isn't and it never has been."
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* I still read the strong tone as a reaction. But Rule 2 says a heated post is still a `hot_take` if it makes a general claim, and this one is about the club and "never has been," not about something that just happened to the writer. I can defend my reading only because the tone sounds immediate. The rule is on staff's side.
+>
+> *Which pile:* (c)
+
+**10.**
+> *The post:* "Track sessions are wasted on anyone running slower than 8 minute miles. You'd get more out of just running more."
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. "8 minute miles" is a line the writer draws inside the claim, not evidence offered for it, and nothing is checkable behind "wasted" (Rule 1).
+>
+> *Which pile:* (a)
+
+**11.**
+> *The post:* "Nobody actually enjoys the long run. They enjoy having done it, which is a completely different thing, and the sport would be more honest if it said so."
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff is right. It is a general claim about everyone ("nobody actually enjoys") with no data behind it, not a report of something that just happened to the writer (Rule 2). It sounds reflective, which is why I read it as a reaction.
+>
+> *Which pile:* (a)
+
+**12.**
+> *The post:* "Every injury thread on this forum is the same injury and the same three replies."
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff is right. It is a general claim about every thread on the forum, with no count or example offered, so it is a `hot_take` (Rule 2). I responded to the annoyed tone instead of asking whether it was about the writer's own moment.
+>
+> *Which pile:* (a)
+
+**13.**
+> *The post:* "First run back after eight weeks out. Two miles, slower than my warm-up used to be, and I don't care even slightly."
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff is right. It reports the writer's own run and feeling, just done, and makes no general claim about the world (Rule 2). I took "I don't care even slightly" as a confident claim, but it is about the writer's own state.
+>
+> *Which pile:* (a)
+
+**14.**
+> *The post:* "Wind was so bad on the out section I was leaning at about 20 degrees. Coming back felt like cheating."
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff is right. It is a report of the run the writer just did and how it felt. The "20 degrees" is a figure of speech, not evidence for an argument (Rule 2, and Rule 3 does not apply because no fact carries a claim).
+>
+> *Which pile:* (a)
+
+**15.**
+> *The post:* "Just realised the shoes I set every PB in this year are the ones I bought by accident in the wrong size."
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff is right. "Just realised" marks a recent, personal moment about the writer's own shoes. It could be read as a wry comment about shoe talk, but it asserts nothing general (Rule 2).
+>
+> *Which pile:* (a)
+
 
 **What the pattern in my disagreements tells me:**
+Of my 15 disagreements, 13 are pile (a), meaning the rule already covered the post and I applied it loosely, and only 2 (posts 7 and 9) are pile (c). The biggest cluster is 7 posts that staff called `analysis` and I did not (6 as `hot_take`, 1 as `reaction`): I reacted to the first-person voice, the hedging or the confident ending, and missed that a checkable number carried the argument (Rule 1). The rest went the other way: in 5 posts staff called a general claim `hot_take` and I called it `reaction` (3 posts) or `analysis` (2 posts), and in 3 first-person moment posts (13 to 15) staff said `reaction` and I said `hot_take`. So I applied the rules by tone and voice instead of asking whether a fact is load-bearing or whether the post is about the writer's own moment. That is evidence that my own 200 labels may be inconsistent in the same way, though the staff set is only 30 posts and under different definitions than mine. It also means my 50% agreement rate (criterion 4 target was 18 of 30, so it is MISSED) points at my labeling, and I will weigh that against the model's under-training when I diagnose the other misses.
 
 
 
