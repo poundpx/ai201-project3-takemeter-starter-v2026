@@ -279,13 +279,19 @@ The model put all 30 test posts in the `experience` column, so the matrix is one
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.50 | MISSED | 0.333, 0.333 and 0.367 are all below 0.50, so the target does not hold in any seed. The best seed is 0.133 short. |
+| 2 | Every label F1 | ≥ 0.40 | MISSED | The lowest label F1 is 0.000 in all three seeds (`analysis` and `reaction` are 0.000 in every seed, `outlook` is 0.000 in two). One label under 0.40 is enough to miss. |
+| 3 | No label over 50% of predictions | ≤ 50% | MISSED | `experience` is 100% of predictions in seeds 42 and 7 and 86.7% in seed 2024, so it is over 50% in all three. |
+| 4 | Agreement with staff set | ≥ 18 of 30 | MISSED | I agreed on 15 of 30 (50%), three posts under the target. |
+| 5 | `experience` F1 | ≥ 0.45 | MET | 0.500, 0.500 and 0.556 are all above 0.45. This is a weak MET: the model only scores this because it calls almost every post `experience`, which gives full recall on that label. |
 
 **Diagnoses**
+
+**Criteria 1, 2 and 3 (one shared cause: the model collapsed onto `experience`).** In seed 42 every one of the 30 test posts was predicted `experience` (see the confusion matrix), and seed 7 gave the same F1 scores. Only seed 2024 spread out a little (`outlook` F1 0.167). The training log shows why this is likely a model-side problem: the loss went from about 1.36 to about 1.33 when pure guessing among 4 labels is about 1.39, and training was only about 27 updates (139 training posts, batch size 16, 3 epochs). So the model barely moved off guessing and fell back to my biggest label (`experience`, about a third of the data). This is closest to "a task the model can't reach from 200 examples" with these settings. I cannot rule out a labeling cause for these three yet, because a model that learned almost nothing would score badly even on clean labels, so the baseline gap is not evidence about my labels either way.
+
+**Criterion 4 (labeling: a boundary I applied inconsistently).** 13 of my 15 disagreements with staff were pile (a): the written rule covered the post and I applied it loosely. The largest cluster was 7 posts staff called `analysis`, where I went by the first-person voice, the hedging or the confident ending instead of asking whether a checkable fact carries the argument (Rule 1). This is direct evidence that I apply the `analysis` versus `hot_take` boundary by tone. It is evidence about the staff taxonomy, not proof that my own 200 labels have the same flaw, but it is the strongest hint I have that they might.
+
+**Criterion 5 (met, with a caveat).** The MET is not a sign that the model understands `experience`. Its precision on that label is low (about 0.33 in seeds 42 and 7), and it reaches the F1 only through recall of 1.0. Reading it as success would be the generous interpretation.
 
 <!-- For each miss: the cause, and how you know. The four common causes are:
      too few examples for a label, a boundary you applied inconsistently, a
